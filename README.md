@@ -24,32 +24,28 @@ Step 11: Perform speech recognition with exceptional handling:<Br>
 
 ```python
 import speech_recognition as sr
+# initialize the reconizer
+r=sr.Recognizer()
+# set duration for the audio
+duration=15 # second=
+# record audio
+print("say somthing:")
 
-# Assign a string variable "file" with the name of the audio file that you want to transcribe.
-file = "audio.wav"
-
-# Create an instance of the Recognizer class called "r".
-r = sr.Recognizer()
-
-# Use the AudioFile() method of sr to create an AudioFile object with the audio file name passed as an argument.
-with sr.AudioFile(file) as source:
-    audio = r.record(source)
-
-# Use the recognize_google() method of r to transcribe the audio data stored in the "audio" variable.
+with sr.Microphone() as source:
+    audio_date=r.listen(source,timeout=duration)
 try:
-    text = r.recognize_google(audio)
+    text=r.recognize_google(audio_date)
+    print("you said:",text)
 except sr.UnknownValueError:
-    print("Not clear")
+    print("sorry ,could not undersand audio")
 except sr.RequestError as e:
-    print("Couldn't get results from Google Speech Recognition service; {0}".format(e))
-
-# Print the text in the next lines.
-for line in text.splitlines():
-    print(line)
+    print(f'Error with the request to google speech recognation service:{e}')
+except Exception as e:
+    print(f'Error:{e}')
 ```
 <H3> Output:</H3>
 
-![](out.png)
+![image](https://github.com/BaskaranV15/Ex-8--AAI/assets/118703522/26a6c5a6-cc36-4312-9a73-3736ffde3aa7)
 
 <H3> Result:</H3>
 
